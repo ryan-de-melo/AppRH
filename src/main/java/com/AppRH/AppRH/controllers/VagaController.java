@@ -110,6 +110,46 @@ public class VagaController {
     }
 
     //Deleta candidato pelo CPF
-    
+    @RequestMapping("/deletarCandidato")
+    public String deletarCandidato(String cpf) {
+        
+        Candidato candidato = candidatoRepository.findByCpf(cpf);
+        Vaga vaga = candidato.getVaga();
+        String codigoDaVaga = "" + vaga.getCodigo();
+
+        candidatoRepository.delete(candidato);
+
+        return "redirect:/" + codigoDaVaga;
+    }
+
+
+
+    // MÉTODOS QUE ATUALIZAM VAGA
+
+
+    // formulario de edição de vaga (APENAS VIEW)
+    @RequestMapping(value = "/editar-vaga", method = RequestMethod.GET)
+    public ModelAndView editarVaga(long codigo) {
+        
+        Vaga vaga = vagaRepository.findByCodigo(codigo);
+
+        ModelAndView modelAndView = new ModelAndView("vaga/update-vaga");
+
+        modelAndView.addObject("vaga", vaga);
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/editar-vaga", method = RequestMethod.POST)
+    public String updateVaga(@Valid Vaga vaga, BindingResult result, RedirectAttributes attributes) {
+
+        vagaRepository.save(vaga);
+
+        attributes.addFlashAttribute("success", "vaga alterada com sucesso!");
+
+        String codigo = "" + vaga.getCodigo();
+
+        return "redirect:/" + codigo;
+    }
 
 }

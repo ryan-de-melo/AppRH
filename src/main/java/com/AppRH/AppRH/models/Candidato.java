@@ -74,4 +74,8 @@ public class Candidato {
     public void setVaga(Vaga vaga) {
         this.vaga = vaga;
     }
+
+    public Vaga getVaga() {
+        return vaga;
+    }
 }
