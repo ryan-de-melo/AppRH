@@ -12,7 +12,7 @@ import jakarta.validation.constraints.NotEmpty;
 public class Candidato {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NotEmpty
@@ -65,5 +65,13 @@ public class Candidato {
 
     public void setCurriculo(String curriculo) {
         this.curriculo = curriculo;
+    }
+
+    public String getCPF() {
+        return cpf;
+    }
+
+    public void setVaga(Vaga vaga) {
+        this.vaga = vaga;
     }
 }
